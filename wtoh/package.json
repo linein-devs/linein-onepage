@@ -1,0 +1,13 @@
+{
+  "name": "wtoh-onepage",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "拍拍印 × 成家婚顧 onepage — build (minify) index-src.html → index.html",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "html-minifier-terser": "^7.2.0"
+  }
+}
