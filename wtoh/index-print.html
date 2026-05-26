@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>拍拍印 × 成家婚顧 ｜ 專屬優惠</title>
+<meta name="description" content="拍拍印 X 成家婚顧 專屬優惠：婚禮現場互動拍貼，免下載 App、掃碼即玩，即時列印＋電子檔雙收藏。加入 LINE 立即諮詢。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+/* ==================== PRINT STYLES ==================== */
+@page{ size: A4 portrait; margin: 10mm; }
+
+@media screen{
+  /* Center the lane on screen preview before printing */
+  body{padding:20px 0}
+}
+
+/* Force-show .reveal elements (they're opacity:0 by default) */
+.reveal{opacity:1 !important;transform:none !important;transition:none !important}
+
+/* Hide all chrome that doesn't belong in PDF */
+.sticky-cta, .tweaks-panel, .fairy-lights{display:none !important}
+
+/* Stretch lane to printable width, drop screen-only shadow */
+.lane{max-width:100% !important;box-shadow:none !important;background:#FBF7F1 !important}
+
+@media print{
+  /* Make sure colors render */
+  *{-webkit-print-color-adjust:exact !important; print-color-adjust:exact !important}
+
+  body{
+    background:#FBF7F1 !important;
+    padding:0 !important;
+    font-size:13px;
+  }
+
+  /* Kill transitions / animations */
+  *,*::before,*::after{
+    animation:none !important;
+    transition:none !important;
+  }
+
+  /* Section spacing tighter for print */
+  section{padding:36px 22px !important}
+
+  /* Each major section starts on a new page */
+  section[data-screen-label="02 Video"],
+  section[data-screen-label="03 Steps"],
+  section[data-screen-label="04 Plans"],
+  section[data-screen-label="05 Why us"],
+  section[data-screen-label="06 Contact"]{
+    break-before: page;
+    page-break-before: always;
+  }
+
+  /* Avoid breaking inside individual cards */
+  .step-card, .plan-card, .trust-card, .video-card, .cta-card,
+  .why-bridge, .tnode{
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* YouTube iframe doesn't print — replace with a printable placeholder */
+  .video-frame{position:relative;background:linear-gradient(135deg,#FBF1E8,#E6DBF0) !important}
+  .video-frame iframe{display:none !important}
+  .video-frame::after{
+    content:"▶  YouTube ・ https://youtu.be/tClKwCuZ13w";
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    font-family:"Cormorant Garamond",serif;font-style:italic;font-size:14px;
+    color:var(--ink-700);text-align:center;padding:20px;
+  }
+
+  /* Drop hover-y / interactive states */
+  .btn{box-shadow:none !important}
+
+  /* Footer compact */
+  .footer{padding:18px 24px}
+
+  /* Hero: make first page feel like a cover */
+  .hero{padding:0 !important}
+  .hero-inner{padding:24px 22px 40px !important}
+}
+</style>
+</head>
+<body>
+
+<div class="lane" data-screen-label="01 Landing">
+
+  <!-- ============================================================
+       SECTION 1 — HERO
+       ============================================================ -->
+  <section class="hero" data-screen-label="01 Hero">
+    <!-- Fairy-light garland -->
+    <svg class="fairy-lights" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M -10 8 Q 80 36 160 16 T 320 20 T 410 8" stroke="#C7A572" stroke-width="0.8" fill="none" opacity="0.55"/>
+      <g>
+        <circle cx="22"  cy="14" r="3" fill="#FFE8B8"/>
+        <circle cx="58"  cy="24" r="3" fill="#F6D6B8"/>
+        <circle cx="96"  cy="30" r="3" fill="#FFE8B8"/>
+        <circle cx="134" cy="28" r="3" fill="#F4DAD6"/>
+        <circle cx="172" cy="22" r="3" fill="#FFE8B8"/>
+        <circle cx="208" cy="20" r="3" fill="#E6DBF0"/>
+        <circle cx="246" cy="22" r="3" fill="#FFE8B8"/>
+        <circle cx="282" cy="20" r="3" fill="#F6D6B8"/>
+        <circle cx="318" cy="20" r="3" fill="#FFE8B8"/>
+        <circle cx="354" cy="16" r="3" fill="#F4DAD6"/>
+        <circle cx="390" cy="12" r="3" fill="#FFE8B8"/>
+      </g>
+      <g opacity="0.6">
+        <circle cx="22"  cy="14" r="6" fill="#FFE8B8"/>
+        <circle cx="58"  cy="24" r="6" fill="#F6D6B8"/>
+        <circle cx="96"  cy="30" r="6" fill="#FFE8B8"/>
+        <circle cx="134" cy="28" r="6" fill="#F4DAD6"/>
+        <circle cx="172" cy="22" r="6" fill="#FFE8B8"/>
+        <circle cx="208" cy="20" r="6" fill="#E6DBF0"/>
+        <circle cx="246" cy="22" r="6" fill="#FFE8B8"/>
+        <circle cx="282" cy="20" r="6" fill="#F6D6B8"/>
+        <circle cx="318" cy="20" r="6" fill="#FFE8B8"/>
+        <circle cx="354" cy="16" r="6" fill="#F4DAD6"/>
+        <circle cx="390" cy="12" r="6" fill="#FFE8B8"/>
+      </g>
+    </svg>
+
+    <div class="hero-inner">
+
+      <div class="brand-row">
+        <div class="logo-pair">
+          <span class="papa">拍拍印</span>
+          <span class="x serif">×</span>
+          <span class="partner">成家婚顧</span>
+        </div>
+        <span class="tag">EXCLUSIVE&nbsp;OFFER</span>
+      </div>
+
+      <div style="text-align:center">
+        <span class="ribbon">準新人 專屬優惠</span>
+      </div>
+
+      <h1 class="hero-title">拍拍印讓你的婚禮更完美
+領取你的專屬成家優惠
+
+Capture every guest, every moment</h1>
+
+      <p class="hero-sub">
+        從迎賓、拍照、互動到現場列印，拍拍印讓每位賓客用自己的手機留下專屬回憶。免下載 App、掃碼即玩，長輩也能輕鬆上手。
+      </p>
+
+      <!-- Hero collage -->
+      <!-- Hero collage: wedding photo wall (6 moments) -->
+      <div class="collage">
+        <span class="sparkle s1">✦</span>
+        <span class="sparkle s2">✦</span>
+        <span class="sparkle s3">✦</span>
+        <span class="sparkle s4">✧</span>
+        <span class="sparkle s5">✧</span>
+
+        <!-- p1 — main: bride/groom walk-in with guests holding phones up -->
+        <div class="photo p1">
+          <span class="tape"></span>
+          <img src="images/walk-in-toast.jpg" alt="新人進場、賓客手機拍摄" style="object-position:50% 45%" />
+          <span class="cap">The big day</span>
+        </div>
+
+        <!-- p2 — couple kissing at glitter booth -->
+        <div class="photo p2">
+          <span class="tape right"></span>
+          <img src="images/booth-couple.jpg" alt="新人在拍貼亭親密合影" style="object-position:50% 40%" />
+          <span class="cap">Forever us</span>
+        </div>
+
+        <!-- p3 — bride with friend at booth -->
+        <div class="photo p3">
+          <img src="images/booth-bride-friend.jpg" alt="新娘與姐妹團拍貼互動" style="object-position:48% 38%" />
+          <span class="cap">Cheers</span>
+        </div>
+
+        <!-- p4 — polaroids in hand -->
+        <div class="photo p4">
+          <span class="tape"></span>
+          <img src="images/polaroids-hand.jpg" alt="現場列印的拍立得成品" style="object-position:50% 45%" />
+          <span class="cap">Happy wedding</span>
+        </div>
+
+        <!-- p5 — couple at starlight selfie lamp -->
+        <div class="photo p5">
+          <img src="images/starlight-couple.jpg" alt="新人手機自拍體驗" style="object-position:40% 45%" />
+          <span class="cap">Just married</span>
+        </div>
+
+        <!-- p6 — guests at photo booth -->
+        <div class="photo p6">
+          <span class="tape right"></span>
+          <img src="images/hero-friends.jpg" alt="賓客在拍貼亭歡笑合影" style="object-position:50% 45%" />
+          <span class="cap">Our crew</span>
+        </div>
+      </div>
+
+      <!-- Hero chips -->
+      <div class="chips">
+        <span class="chip"><span class="check">✓</span>掃碼即玩，免下載 App</span>
+        <span class="chip"><span class="check">✓</span>現場即時列印</span>
+        <span class="chip"><span class="check">✓</span>實體＋電子檔雙收藏</span>
+      </div>
+
+      <!-- CTAs -->
+      <div class="cta-stack">
+        <a class="btn btn-line btn-block" href="#contact" data-cta="hero-line">
+          <span class="ic">L</span>
+          立即領取專屬優惠
+        </a>
+        <a class="btn btn-ghost btn-block" href="#plans">
+          查看方案怎麼選 →
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 2 — 示意影片
+       ============================================================ -->
+  <section class="video-section" data-screen-label="02 Video">
+    <div class="section-head">
+      <span class="eyebrow">現場怎麼玩</span>
+      <h2 class="section-title serif">一支手機，<br/>就能讓<em>全場一起</em>留下回憶</h2>
+      <p class="section-sub">不用排隊等機台，也不用下載 App。賓客只要掃碼進入活動頁面，就能拍照、上傳、套框、列印，從迎賓到送客都能自然參與。</p>
+    </div>
+
+    <div class="video-card">
+      <div class="video-frame">
+        <iframe
+          src="https://www.youtube.com/embed/tClKwCuZ13w?si=8c3hby9RJhyWyFjX&rel=0&modestbranding=1"
+          title="拍拍印 婚禮現場示意影片"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 3 — 操作流程
+       ============================================================ -->
+  <section data-screen-label="03 Steps">
+    <div class="section-head">
+      <span class="eyebrow">操作流程</span>
+      <h2 class="section-title serif">操作超簡單！<br/><em>四個步驟</em>，照片就在手</h2>
+    </div>
+
+    <div class="steps">
+
+      <!-- STEP 1 -->
+      <article class="step-card sc-1 reveal">
+        <span class="step-spark">✦</span>
+        <div class="dots"></div>
+        <div class="step-photo">
+          <span class="tape"></span>
+          <img src="images/hero-friends.jpg" alt="賓客在拍貼亭歡笑自拍" style="object-position:50% 38%" />
+          <span class="step-title-chip">掃碼進入活動頁面</span>
+        </div>
+        <span class="step-badge"><span class="lbl">STEP</span><span class="n">01</span></span>
+        <div class="step-text"></div>
+      </article>
+
+      <!-- STEP 2 -->
+      <article class="step-card sc-2 reveal">
+        <span class="step-spark">✦</span>
+        <div class="dots"></div>
+        <div class="step-photo">
+          <span class="tape"></span>
+          <img src="images/starlight-couple.jpg" alt="新人用手機拍照上傳" style="object-position:40% 45%" />
+          <span class="step-title-chip">拍照 ／ 上傳照片</span>
+        </div>
+        <span class="step-badge"><span class="lbl">STEP</span><span class="n">02</span></span>
+        <div class="step-text"></div>
+      </article>
+
+      <!-- STEP 3 -->
+      <article class="step-card sc-3 reveal">
+        <span class="step-spark">✦</span>
+        <div class="dots"></div>
+        <div class="step-photo">
+          <span class="tape"></span>
+          <img src="images/booth-couple.jpg" alt="套上專屬婚禮邊框的成品" style="object-position:50% 40%" />
+          <span class="step-title-chip">套用專屬婚禮邊框</span>
+        </div>
+        <span class="step-badge"><span class="lbl">STEP</span><span class="n">03</span></span>
+        <div class="step-text"></div>
+      </article>
+
+      <!-- STEP 4 -->
+      <article class="step-card sc-4 reveal">
+        <span class="step-spark">✧</span>
+        <div class="dots"></div>
+        <div class="step-photo">
+          <span class="tape"></span>
+          <img src="images/korean-strip-hand.png" alt="婚宴現場拿到的拍貼成品" style="object-position:50% 40%" />
+          <span class="step-title-chip">立即列印，現場取件</span>
+        </div>
+        <span class="step-badge"><span class="lbl">STEP</span><span class="n">04</span></span>
+        <div class="step-text"></div>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 4 — 各專案簡易選擇
+       ============================================================ -->
+  <section id="plans" class="plans-section" data-screen-label="04 Plans">
+    <div class="section-head">
+      <span class="eyebrow">方案怎麼選</span>
+      <h2 class="section-title serif">依照婚禮風格，<br/>找到最適合<em>你們的</em>拍貼方案</h2>
+      <p class="section-sub">不論是想要經典耐看、互動感滿滿，還是希望賓客帶走更有份量的回憶，拍拍印都能依照桌數、場地與婚禮風格搭配最適合的方案。</p>
+    </div>
+
+    <div class="plans">
+
+      <!-- 1 精選版 -->
+      <article class="plan-card reveal">
+        <div class="plan-img">
+          <img src="images/plan-featured.jpg" alt="精選版 拍立得方案" loading="lazy" />
+          <span class="plan-badge">熱門首選</span>
+        </div>
+        <div class="plan-body">
+          <h3 class="plan-title">精選版 ｜ 經典拍立得</h3>
+          <div class="plan-sub">手機上傳操作，直覺又簡單</div>
+          <p class="plan-desc">適合各個宴會場地，新人輕鬆準備，迎賓到送客都好用，是新手新人最安心的選擇。</p>
+          <div class="plan-tags">
+            <span class="plan-tag">適合 15–20 桌</span>
+            <span class="plan-tag">經典耐看</span>
+            <span class="plan-tag">新手友善</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 韓式 -->
+      <article class="plan-card reveal">
+        <div class="plan-img">
+          <img src="images/plan-korean.jpg" alt="韓式四連拍方案" loading="lazy" />
+          <span class="plan-badge lavender">互動首選</span>
+        </div>
+        <div class="plan-body">
+          <h3 class="plan-title">韓式四連拍 ｜ 動感連拍</h3>
+          <div class="plan-sub">讓賓客越拍越投入</div>
+          <p class="plan-desc">適合喜歡儀式感的新人，讓朋友、姐妹團與賓客一起留下活潑有趣的婚禮回憶。</p>
+          <div class="plan-tags">
+            <span class="plan-tag">適合年輕賓客</span>
+            <span class="plan-tag">社群感強</span>
+            <span class="plan-tag">儀式感滿滿</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 Combo -->
+      <article class="plan-card reveal">
+        <div class="plan-img">
+          <img src="images/plan-combo.jpg" alt="Combo 方案" loading="lazy" />
+          <span class="plan-badge blush">闔家首選</span>
+        </div>
+        <div class="plan-body">
+          <h3 class="plan-title">Combo 方案 ｜ 一次擁有</h3>
+          <div class="plan-sub">手機上傳，美式 ／ 韓式一次擁有</div>
+          <p class="plan-desc">懶新人免煩惱，一次滿足長輩喜歡的經典照片，也滿足朋友喜歡的拍貼互動。</p>
+          <div class="plan-tags">
+            <span class="plan-tag">適合多族群賓客</span>
+            <span class="plan-tag">選擇障礙首選</span>
+            <span class="plan-tag">大小朋友都喜歡</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 拍貼亭 -->
+      <article class="plan-card reveal">
+        <div class="plan-img" data-fit="cover">
+          <img src="images/booth-bride-friend.jpg" alt="拍貼亭 婚禮打卡區" loading="lazy" />
+          <span class="plan-badge">時下潮流</span>
+        </div>
+        <div class="plan-body">
+          <h3 class="plan-title">拍貼亭 ｜ 定點互動拍攝</h3>
+          <div class="plan-sub">互動感十足的婚禮打卡區</div>
+          <p class="plan-desc">適合美式風格、精緻婚禮，打造一個賓客會主動靠近拍照的婚禮打卡區。</p>
+          <div class="plan-tags">
+            <span class="plan-tag">適合精緻婚禮</span>
+            <span class="plan-tag">拍照區亮點</span>
+            <span class="plan-tag">美式感</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 婚報 -->
+      <article class="plan-card reveal">
+        <div class="plan-img">
+          <img src="images/plan-newspaper.jpg" alt="婚報方案" loading="lazy" />
+          <span class="plan-badge lavender">獨家回憶</span>
+        </div>
+        <div class="plan-body">
+          <h3 class="plan-title">婚報 ｜ A4 婚禮快報</h3>
+          <div class="plan-sub">上傳照片變頭條</div>
+          <p class="plan-desc">讓賓客帶走一份像婚禮報紙般有份量、有故事感的紀念品，送客桌上的最佳亮點。</p>
+          <div class="plan-tags">
+            <span class="plan-tag">適合故事感婚禮</span>
+            <span class="plan-tag">送客亮點</span>
+            <span class="plan-tag">紀念感強</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 5 — 為什麼新人都選擇拍拍印
+       ============================================================ -->
+  <section class="why-section" data-screen-label="05 Why us">
+    <div class="section-head">
+      <span class="eyebrow">從籌備到婚禮現場</span>
+      <h2 class="section-title serif">為什麼新人<br/>都<em>選擇拍拍印</em>？</h2>
+    </div>
+
+    <!-- Trust badges -->
+    <div class="trust-grid">
+      <div class="trust-card">
+        <div class="num">10,000+</div>
+        <div class="lbl">累積服務婚禮場次</div>
+      </div>
+      <div class="trust-card">
+        <div class="num">★ 4.9</div>
+        <div class="lbl">Google 商家評價<br/><span class="sub">高分好評</span></div>
+      </div>
+      <div class="trust-card">
+        <div class="num">100+</div>
+        <div class="lbl">合作婚禮顧問<br/>與主持團隊</div>
+      </div>
+      <div class="trust-card">
+        <div class="num">全台</div>
+        <div class="lbl">海內外服務據點<br/><span class="sub">新加坡 ・ 馬來西亞 ・ 加拿大</span></div>
+      </div>
+    </div>
+
+    <p class="why-bridge">
+      拍拍印長期服務全台婚禮市場，累積<b>萬場實戰經驗</b>，並在 Google 商家平台獲得高分評價。對新人而言，不只是印照片，更是在重要時刻「令人印象深刻」的婚禮互動選擇。
+    </p>
+
+    <!-- Timeline -->
+    <ol class="timeline">
+      <li class="tnode reveal">
+        <span class="marker">1</span>
+        <h4>專屬獨立後台</h4>
+        <p>婚前即可設定活動資訊、邊框與相關內容，讓準備流程更有掌握感。</p>
+      </li>
+      <li class="tnode reveal">
+        <span class="marker">2</span>
+        <h4>專業客服團隊</h4>
+        <p>從下訂到婚禮前，都有專人協助確認細節，降低新人籌備壓力。</p>
+      </li>
+      <li class="tnode reveal">
+        <span class="marker">3</span>
+        <h4>2 位現場工作人員</h4>
+        <p>婚禮當天協助引導賓客操作、維持流程順暢，讓新人不用分心處理。</p>
+      </li>
+      <li class="tnode reveal">
+        <span class="marker">4</span>
+        <h4>備用機台 雙重保障</h4>
+        <p>現場設備有完整備援安排，讓重要日子更安心。</p>
+      </li>
+      <li class="tnode reveal">
+        <span class="marker">5</span>
+        <h4>專業即時監控</h4>
+        <p>即時掌握上傳、列印與現場狀態，確保婚禮互動穩定進行。</p>
+      </li>
+    </ol>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 6 — 立即 1 對 1 專人體驗
+       ============================================================ -->
+  <section id="contact" class="cta-section" data-screen-label="06 Contact">
+    <div class="section-head">
+      <span class="eyebrow">專屬優惠諮詢</span>
+      <h2 class="section-title serif">想知道你們的婚禮<br/>適合<em>哪一種方案</em>？</h2>
+    </div>
+
+    <!-- Memory collage -->
+    <div class="cta-collage" aria-hidden="true">
+      <div class="photo c1"><img src="images/walk-in-toast.jpg" alt="" /><span class="cap">Our&nbsp;day</span></div>
+      <div class="photo c2"><img src="images/starlight-couple.jpg" alt="" /><span class="cap">Just&nbsp;married</span></div>
+      <div class="photo c3"><img src="images/booth-friends.jpg" alt="" /></div>
+    </div>
+
+    <div class="cta-card">
+      <p style="font-size:13px;color:var(--lavender-deep);font-weight:700;letter-spacing:.18em">FOR&nbsp;成家婚顧&nbsp;新人</p>
+      <h2 style="margin-top:10px">每場婚禮都獨一無二<br/>幫你找到最對的方案</h2>
+      <p>每場婚禮的桌數、場地動線與賓客組成都不同。加入 LINE 好友，讓拍拍印專人協助你快速判斷最適合的方案，並領取<b style="color:var(--champagne-dark)">「成家婚顧 專屬優惠」</b>。</p>
+
+      <a class="btn btn-line btn-block" href="#" data-cta="final-line" style="margin-top:22px">
+        <span class="ic">L</span>
+        加入 LINE 好友領取優惠
+      </a>
+
+      <div class="small-note">加入好友預設文字：<b>我想了解成家婚顧 專屬優惠</b></div>
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    <span class="heart">♥</span>&nbsp;拍出愛的每一刻 → 印出愛的每一刻
+    <div class="line">live in incredible — 拍拍印 × 成家婚顧</div>
+  </footer>
+
+</div><!-- /.lane -->
+
+<!-- Sticky bottom CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <a class="btn btn-line" href="#contact">
+    <span class="ic">L</span>
+    立即領取 成家婚顧 專屬優惠
+  </a>
+</div>
+
+<!-- ============================================================
+     TWEAKS PANEL
+     ============================================================ -->
+<div class="tweaks-panel" id="tweaksPanel" role="dialog" aria-label="Tweaks">
+  <div class="tw-head" id="twHead">
+    <h4>TWEAKS</h4>
+    <button class="x" id="twClose" aria-label="close">✕</button>
+  </div>
+  <div class="tw-body">
+
+    <div class="tw-group">
+      <div class="label"><span>色調 · PALETTE</span><span class="v" data-v="palette"></span></div>
+      <div class="tw-swatches" data-tw="palette">
+        <button class="tw-swatch" data-v="champagne" aria-label="香檻金"><span class="name">香檻金</span></button>
+        <button class="tw-swatch" data-v="lavender" aria-label="深柔紫"><span class="name">柔紫</span></button>
+        <button class="tw-swatch" data-v="blush" aria-label="淡粉"><span class="name">淡粉</span></button>
+      </div>
+    </div>
+
+    <div class="tw-group">
+      <div class="label"><span>節奏 · RHYTHM</span><span class="v" data-v="rhythm"></span></div>
+      <div class="tw-seg" data-tw="rhythm">
+        <button data-v="soft">柔和</button>
+        <button data-v="editorial">雜誌</button>
+        <button data-v="playful">跳躍</button>
+      </div>
+    </div>
+
+    <div class="tw-group">
+      <div class="label"><span>照片風格 · PHOTO</span><span class="v" data-v="photo"></span></div>
+      <div class="tw-seg" data-tw="photo">
+        <button data-v="polaroid">拍立得</button>
+        <button data-v="magazine">雜誌</button>
+        <button data-v="vintage">復古</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="tw-foot">調整會自動保存 · 可拖動調整位置</div>
+</div>
+
+<script>
+  // ============== Reveal on scroll ==============
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:.12, rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // ============== Sticky CTA ==============
+  const sticky = document.getElementById('stickyCta');
+  const hero = document.querySelector('.hero');
+  const contact = document.getElementById('contact');
+  const onScroll = ()=>{
+    const heroBottom = hero.getBoundingClientRect().bottom;
+    const contactTop = contact.getBoundingClientRect().top;
+    const vh = window.innerHeight;
+    // hide once the final CTA section starts entering the viewport
+    const show = heroBottom < 80 && contactTop > vh * 0.85;
+    sticky.classList.toggle('show', show);
+  };
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // ============== Tweaks ==============
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "palette": "champagne",
+    "rhythm": "playful",
+    "photo": "magazine"
+  }/*EDITMODE-END*/;
+
+  const LABELS = {
+    palette: {champagne:"香檻金", lavender:"柔紫", blush:"淡粉"},
+    rhythm:  {soft:"柔和", editorial:"雜誌", playful:"跳躍"},
+    photo:   {polaroid:"拍立得", magazine:"雜誌深色", vintage:"復古"}
+  };
+
+  const state = {...TWEAK_DEFAULTS};
+  const panel = document.getElementById('tweaksPanel');
+
+  function applyTweaks(){
+    document.body.dataset.palette = state.palette;
+    document.body.dataset.rhythm  = state.rhythm;
+    document.body.dataset.photo   = state.photo;
+    // sync UI
+    document.querySelectorAll('[data-tw]').forEach(group=>{
+      const key = group.dataset.tw;
+      group.querySelectorAll('button').forEach(btn=>{
+        btn.classList.toggle('on', btn.dataset.v === state[key]);
+      });
+    });
+    document.querySelectorAll('.tw-group .v').forEach(v=>{
+      const key = v.dataset.v;
+      v.textContent = LABELS[key][state[key]] || state[key];
+    });
+  }
+
+  function setTweak(key, value){
+    state[key] = value;
+    applyTweaks();
+    try{
+      window.parent.postMessage({type:'__edit_mode_set_keys', edits:{[key]:value}}, '*');
+    }catch(e){}
+  }
+
+  // Wire up controls
+  document.querySelectorAll('[data-tw]').forEach(group=>{
+    const key = group.dataset.tw;
+    group.addEventListener('click', e=>{
+      const btn = e.target.closest('button[data-v]');
+      if(!btn) return;
+      setTweak(key, btn.dataset.v);
+    });
+  });
+
+  // Tweak host protocol — register listener FIRST, then announce
+  window.addEventListener('message', e=>{
+    const t = e.data && e.data.type;
+    if(t === '__activate_edit_mode'){
+      panel.classList.add('open');
+      document.body.classList.add('tweaks-open');
+      applyTweaks();
+    } else if(t === '__deactivate_edit_mode'){
+      panel.classList.remove('open');
+      document.body.classList.remove('tweaks-open');
+    }
+  });
+  // Apply defaults immediately so the page reflects saved state even before activation
+  applyTweaks();
+  try{ window.parent.postMessage({type:'__edit_mode_available'}, '*'); }catch(e){}
+
+  // Close button
+  document.getElementById('twClose').addEventListener('click', ()=>{
+    panel.classList.remove('open');
+    document.body.classList.remove('tweaks-open');
+    try{ window.parent.postMessage({type:'__edit_mode_dismissed'}, '*'); }catch(e){}
+  });
+
+  // Draggable panel
+  (function(){
+    const head = document.getElementById('twHead');
+    let dragging=false, sx=0, sy=0, ox=0, oy=0;
+    head.addEventListener('pointerdown', e=>{
+      if(e.target.closest('#twClose')) return;
+      dragging=true; sx=e.clientX; sy=e.clientY;
+      const r=panel.getBoundingClientRect(); ox=r.left; oy=r.top;
+      panel.style.right='auto'; panel.style.bottom='auto';
+      panel.style.left=ox+'px'; panel.style.top=oy+'px';
+      head.setPointerCapture(e.pointerId);
+    });
+    head.addEventListener('pointermove', e=>{
+      if(!dragging) return;
+      panel.style.left = Math.max(8, Math.min(window.innerWidth - panel.offsetWidth - 8, ox + e.clientX - sx)) + 'px';
+      panel.style.top  = Math.max(8, Math.min(window.innerHeight - panel.offsetHeight - 8, oy + e.clientY - sy)) + 'px';
+    });
+    head.addEventListener('pointerup', ()=>{ dragging=false; });
+  })();
+</script>
+</body>
+</html>
