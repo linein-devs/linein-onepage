@@ -76,11 +76,11 @@
 
 /* 桌面 (≥1024px)：隱藏側邊卷軸 + 右側直向 dot，tooltip 在 dot 左側 */
 @media (min-width:1024px){
-  html{scroll-snap-type:y proximity;scrollbar-width:none}
+  html{scrollbar-width:none}
   html::-webkit-scrollbar{width:0;height:0;display:none}
   body{scrollbar-width:none}
   body::-webkit-scrollbar{width:0;height:0;display:none}
-  .lane section[data-screen-label]{scroll-snap-align:start;scroll-margin-top:64px}
+  .lane section[data-screen-label]{scroll-margin-top:64px}
 
   .chapter-nav{
     display:flex;flex-direction:column;align-items:flex-end;gap:18px;
@@ -958,7 +958,7 @@ body.tweaks-open .chapter-nav{display:none}
     var dots = [].slice.call(nav.querySelectorAll('.chapter-dot'));
     if(!sections.length || !dots.length) return;
 
-    var activeIdx = -1, flashTimer = null, lockUntil = 0, ticking = false;
+    var activeIdx = -1, flashTimer = null, lockUntil = 0;
 
     function setActive(i){
       if(i < 0 || i >= dots.length || i === activeIdx) return;
@@ -970,38 +970,27 @@ body.tweaks-open .chapter-nav{display:none}
       flashTimer = setTimeout(function(){ dot.classList.remove('flash'); }, 1600);
     }
 
-    // 目前章節 = 最後一個頂端已捲過視窗上方 ~30% 線的 section（捲到底時取最後一章）
-    function currentIndex(){
-      if(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) return sections.length - 1;
-      var line = window.innerHeight * 0.30, idx = 0;
-      for(var i = 0; i < sections.length; i++){
-        if(sections[i].getBoundingClientRect().top <= line) idx = i; else break;
-      }
-      return idx;
-    }
-
-    function onScroll(){
-      if(ticking) return;
-      ticking = true;
-      requestAnimationFrame(function(){
-        ticking = false;
-        if(Date.now() < lockUntil) return;        // 點擊平滑捲動期間不被中途章節干擾
-        setActive(currentIndex());
-      });
-    }
-
+    // 點 dot → 立即啟用該章 + 平滑捲動（lock 期間不被中途章節干擾）
     dots.forEach(function(dot, i){
       dot.addEventListener('click', function(){
         if(!sections[i]) return;
         lockUntil = Date.now() + 900;
-        setActive(i);                             // 立即啟用點選的章節
+        setActive(i);
         sections[i].scrollIntoView({ behavior:'smooth', block:'start' });
       });
     });
 
-    window.addEventListener('scroll', onScroll, { passive:true });
-    window.addEventListener('resize', onScroll, { passive:true });
-    setActive(currentIndex());                    // 初始
+    // active = 視窗中央細帶所在的章節（維護全部 section 狀態，對 lazy 圖片/版面變動穩定）
+    var visible = sections.map(function(){ return false; });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        var idx = sections.indexOf(e.target);
+        if(idx >= 0) visible[idx] = e.isIntersecting;
+      });
+      if(Date.now() < lockUntil) return;
+      for(var i = 0; i < visible.length; i++){ if(visible[i]){ setActive(i); break; } }
+    }, { rootMargin:'-45% 0px -45% 0px', threshold:0 });
+    sections.forEach(function(s){ io.observe(s); });
   })();
 </script>
 </body>
