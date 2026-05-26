@@ -39,10 +39,43 @@
 </template>
 
 <style>
-/* ===== 桌面 (≥1024px)：隱藏側邊卷軸 + 章節 dot 導覽 ===== */
+/* ===== 章節 dot 導覽（桌面：右側直向 / 手機：底部置中橫向）===== */
 .chapter-nav{display:none}
+
+/* 共用外觀 */
+.chapter-dot{position:relative;display:flex;align-items:center;justify-content:center;padding:4px;background:none;border:0;cursor:pointer}
+.chapter-dot .dot-mark{
+  width:10px;height:10px;border-radius:50%;
+  background:rgba(150,120,90,.35);border:1px solid rgba(150,120,90,.3);
+  transition:transform .3s ease,background .3s ease,box-shadow .3s ease;
+}
+.chapter-dot.is-active .dot-mark{background:var(--champagne);transform:scale(1.4);box-shadow:0 0 0 4px rgba(199,165,114,.2)}
+.chapter-tip{
+  position:absolute;white-space:nowrap;
+  font-size:13px;font-weight:600;letter-spacing:.05em;color:#fff;
+  background:rgba(74,48,104,.92);padding:5px 12px;border-radius:9px;
+  box-shadow:0 6px 18px rgba(0,0,0,.2);
+  opacity:0;pointer-events:none;transition:opacity .28s ease,transform .28s ease;
+}
+.chapter-tip::after{content:"";position:absolute;border:5px solid transparent}
+
+/* 手機/平板 (<1024px)：底部置中橫向 dot 列，tooltip 在 dot 上方 */
+@media (max-width:1023px){
+  .chapter-nav{
+    display:flex;flex-direction:row;align-items:center;gap:14px;
+    position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));
+    transform:translateX(-50%);z-index:80;
+    padding:8px 15px;border-radius:999px;
+    background:rgba(255,255,255,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    box-shadow:0 6px 22px rgba(120,90,70,.22);border:1px solid rgba(150,120,90,.18);
+  }
+  .chapter-tip{bottom:calc(100% + 9px);left:50%;transform:translateX(-50%) translateY(6px)}
+  .chapter-tip::after{top:100%;left:50%;transform:translateX(-50%);border-top-color:rgba(74,48,104,.92)}
+  .chapter-dot.flash .chapter-tip{opacity:1;transform:translateX(-50%) translateY(0)}
+}
+
+/* 桌面 (≥1024px)：隱藏側邊卷軸 + 右側直向 dot，tooltip 在 dot 左側 */
 @media (min-width:1024px){
-  /* 隱藏側邊卷軸（仍可滾輪／dot 導覽），章節輕微吸附 */
   html{scroll-snap-type:y proximity;scrollbar-width:none}
   html::-webkit-scrollbar{width:0;height:0;display:none}
   body{scrollbar-width:none}
@@ -53,26 +86,15 @@
     display:flex;flex-direction:column;align-items:flex-end;gap:18px;
     position:fixed;top:50%;right:30px;transform:translateY(-50%);z-index:80;
   }
-  .chapter-dot{position:relative;display:flex;align-items:center;justify-content:flex-end;padding:4px;background:none;border:0;cursor:pointer}
-  .chapter-dot .dot-mark{
-    width:11px;height:11px;border-radius:50%;
-    background:rgba(150,120,90,.32);border:1px solid rgba(150,120,90,.3);
-    transition:transform .3s ease,background .3s ease,box-shadow .3s ease;
-  }
+  .chapter-dot{justify-content:flex-end}
   .chapter-dot:hover .dot-mark{background:var(--champagne);transform:scale(1.15)}
-  .chapter-dot.is-active .dot-mark{background:var(--champagne);transform:scale(1.4);box-shadow:0 0 0 4px rgba(199,165,114,.2)}
-  .chapter-tip{
-    position:absolute;right:24px;white-space:nowrap;
-    font-size:13px;font-weight:600;letter-spacing:.05em;color:#fff;
-    background:rgba(74,48,104,.92);padding:5px 12px;border-radius:9px;
-    box-shadow:0 6px 18px rgba(0,0,0,.18);
-    opacity:0;transform:translateX(8px);pointer-events:none;
-    transition:opacity .28s ease,transform .28s ease;
-  }
-  .chapter-tip::after{content:"";position:absolute;right:-5px;top:50%;transform:translateY(-50%);border:5px solid transparent;border-left-color:rgba(74,48,104,.92)}
+  .chapter-tip{right:24px;transform:translateX(8px)}
+  .chapter-tip::after{right:-5px;top:50%;transform:translateY(-50%);border-left-color:rgba(74,48,104,.92)}
   .chapter-dot:hover .chapter-tip,.chapter-dot.flash .chapter-tip{opacity:1;transform:translateX(0)}
-  body.tweaks-open .chapter-nav{display:none}
 }
+
+/* 編輯模式隱藏 */
+body.tweaks-open .chapter-nav{display:none}
 </style>
 </head>
 <body>
@@ -928,7 +950,7 @@
 </script>
 
 <script>
-  // ===== 桌面章節 dot 導覽：追蹤目前章節、點擊平滑捲動、進入章節時 tooltip 閃現 =====
+  // ===== 章節 dot 導覽：scrollspy 追蹤目前章節、點擊平滑捲動、進入章節時 tooltip 閃現 =====
   (function(){
     var nav = document.querySelector('.chapter-nav');
     if(!nav) return;
@@ -936,32 +958,50 @@
     var dots = [].slice.call(nav.querySelectorAll('.chapter-dot'));
     if(!sections.length || !dots.length) return;
 
-    var activeIdx = -1, flashTimer = null;
+    var activeIdx = -1, flashTimer = null, lockUntil = 0, ticking = false;
+
     function setActive(i){
       if(i < 0 || i >= dots.length || i === activeIdx) return;
       activeIdx = i;
-      dots.forEach(function(d, idx){ d.classList.toggle('is-active', idx === i); d.classList.remove('flash'); });
+      dots.forEach(function(d, idx){ d.classList.toggle('is-active', idx === i); if(idx !== i) d.classList.remove('flash'); });
       var dot = dots[i];
       dot.classList.add('flash');                 // 閃現此章節標題
       if(flashTimer) clearTimeout(flashTimer);
       flashTimer = setTimeout(function(){ dot.classList.remove('flash'); }, 1600);
     }
 
+    // 目前章節 = 最後一個頂端已捲過視窗上方 ~30% 線的 section（捲到底時取最後一章）
+    function currentIndex(){
+      if(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) return sections.length - 1;
+      var line = window.innerHeight * 0.30, idx = 0;
+      for(var i = 0; i < sections.length; i++){
+        if(sections[i].getBoundingClientRect().top <= line) idx = i; else break;
+      }
+      return idx;
+    }
+
+    function onScroll(){
+      if(ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){
+        ticking = false;
+        if(Date.now() < lockUntil) return;        // 點擊平滑捲動期間不被中途章節干擾
+        setActive(currentIndex());
+      });
+    }
+
     dots.forEach(function(dot, i){
       dot.addEventListener('click', function(){
-        if(sections[i]) sections[i].scrollIntoView({ behavior:'smooth', block:'start' });
+        if(!sections[i]) return;
+        lockUntil = Date.now() + 900;
+        setActive(i);                             // 立即啟用點選的章節
+        sections[i].scrollIntoView({ behavior:'smooth', block:'start' });
       });
     });
 
-    // 以視窗中央的細帶判定目前章節
-    var io = new IntersectionObserver(function(entries){
-      var best = null;
-      entries.forEach(function(e){
-        if(e.isIntersecting && (!best || e.intersectionRatio > best.intersectionRatio)) best = e;
-      });
-      if(best){ var idx = sections.indexOf(best.target); if(idx >= 0) setActive(idx); }
-    }, { rootMargin:'-45% 0px -45% 0px', threshold:[0, .25, .5, .75, 1] });
-    sections.forEach(function(s){ io.observe(s); });
+    window.addEventListener('scroll', onScroll, { passive:true });
+    window.addEventListener('resize', onScroll, { passive:true });
+    setActive(currentIndex());                    // 初始
   })();
 </script>
 </body>
